@@ -1,0 +1,121 @@
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  position: relative;
+  margin-top: 60px;
+}
+
+.stepCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.iconWrapperOuter {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.stepNumber {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: var(--accent);
+  color: var(--text-white);
+  font-size: 0.75rem;
+  font-weight: 800;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+  z-index: 3;
+}
+
+.iconWrapperInner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--bg-body);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+}
+
+.stepIcon {
+  transition: transform var(--transition-normal);
+}
+
+.stepCard:hover .iconWrapperInner {
+  transform: translateY(-5px);
+  background-color: var(--primary);
+  color: var(--text-white);
+  box-shadow: var(--shadow-glow);
+}
+
+.stepCard:hover .stepIcon {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.stepTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 12px;
+}
+
+.stepDescription {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Connection line for desktop layout */
+.connectorLine {
+  position: absolute;
+  top: 40px;
+  left: calc(50% + 50px);
+  width: calc(100% - 100px);
+  height: 2px;
+  border-top: 2px dashed var(--text-light);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+/* Responsive configurations */
+@media (max-width: 1024px) {
+  .stepsGrid {
+    gap: 24px;
+  }
+  
+  .connectorLine {
+    left: calc(50% + 40px);
+    width: calc(100% - 80px);
+  }
+}
+
+@media (max-width: 768px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .stepCard {
+    padding: 0;
+  }
+  
+  .connectorLine {
+    display: none;
+  }
+}

@@ -1,0 +1,251 @@
+.hero {
+  position: relative;
+  padding: 160px 0 100px;
+  overflow: hidden;
+  background-color: var(--bg-body);
+}
+
+/* Glassy glow background blobs */
+.glowBlob1 {
+  position: absolute;
+  top: -10%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glowBlob2 {
+  position: absolute;
+  bottom: 10%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: var(--border-radius-xl);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.badgeIcon {
+  color: var(--accent);
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--secondary);
+  line-height: 1.15;
+}
+
+.highlight {
+  color: var(--primary);
+  position: relative;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: rgba(37, 99, 235, 0.1);
+  z-index: -1;
+}
+
+.description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+/* Visual element styles */
+.visualWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.imageCard {
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  background: white;
+  padding: 12px;
+  width: 100%;
+  max-width: 460px;
+  transform: rotate(2deg);
+  transition: transform var(--transition-slow);
+}
+
+.imageCard:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.heroImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--border-radius-md);
+  display: block;
+}
+
+/* Floating badge items */
+.floatingBadge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 12px 18px;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.badge1 {
+  top: -20px;
+  left: -40px;
+}
+
+.badgeIconWrapper {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge2 {
+  bottom: -20px;
+  right: -30px;
+  animation: float 5s ease-in-out infinite alternate;
+}
+
+.badgeIconWrapper2 {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badgeTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.badgeSubtitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 2.75rem;
+  }
+  
+  .container {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 120px 0 60px;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+  }
+  
+  .content {
+    align-items: center;
+  }
+  
+  .actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .actions > a {
+    width: 100%;
+  }
+
+  .visualWrapper {
+    margin-top: 20px;
+  }
+  
+  .imageCard {
+    transform: none;
+    max-width: 100%;
+  }
+  
+  .imageCard:hover {
+    transform: scale(1.01);
+  }
+  
+  .badge1 {
+    left: -10px;
+  }
+  
+  .badge2 {
+    right: -10px;
+  }
+}

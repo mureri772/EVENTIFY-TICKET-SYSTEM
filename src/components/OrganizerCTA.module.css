@@ -1,0 +1,232 @@
+.section {
+  padding: 80px 0;
+  background-color: var(--bg-body);
+  position: relative;
+  overflow: hidden;
+}
+
+.glowBlob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  background-color: var(--secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 1.2fr 1.0fr;
+  gap: 40px;
+  align-items: center;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(249, 115, 22, 0.15);
+  color: var(--accent);
+  padding: 6px 12px;
+  border-radius: var(--border-radius-xl);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  font-size: 2.25rem;
+  color: var(--text-white);
+  line-height: 1.2;
+}
+
+.text {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-white);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.featureIcon {
+  color: var(--accent);
+}
+
+/* Dashboard Mockup styles */
+.visualSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboardMock {
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-md);
+  width: 100%;
+  max-width: 380px;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.mockHeader {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mockDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.mockTitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: monospace;
+  margin-left: 10px;
+}
+
+.mockContent {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mockLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mockSalesRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mockSalesValue {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-white);
+  letter-spacing: -0.02em;
+}
+
+.mockGrowth {
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 600;
+  background-color: rgba(16, 185, 129, 0.1);
+  padding: 2px 8px;
+  border-radius: var(--border-radius-sm);
+}
+
+.mockChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 80px;
+  margin-top: 16px;
+}
+
+.chartBar {
+  background: linear-gradient(180deg, var(--primary) 0%, rgba(37, 99, 235, 0.3) 100%);
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  animation: heightAnim 1s ease forwards;
+}
+
+@keyframes heightAnim {
+  from {
+    height: 0 !important;
+  }
+}
+
+/* Responsive configurations */
+@media (max-width: 1024px) {
+  .card {
+    padding: 40px;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 30px;
+  }
+  
+  .title {
+    font-size: 1.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .content {
+    align-items: center;
+  }
+  
+  .features {
+    align-items: flex-start;
+    text-align: left;
+    margin: 0 auto;
+  }
+  
+  .dashboardMock {
+    max-width: 100%;
+  }
+}

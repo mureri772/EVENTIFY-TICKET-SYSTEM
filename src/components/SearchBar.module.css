@@ -1,0 +1,155 @@
+.searchWrapper {
+  margin-top: -40px; /* Overlap hero section */
+  position: relative;
+  z-index: 10;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+  padding: 12px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+.icon {
+  color: var(--primary);
+  opacity: 0.8;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputField label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  margin-bottom: 2px;
+}
+
+.inputField input,
+.inputField select {
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  width: 100%;
+  outline: none;
+  padding: 2px 0;
+}
+
+.inputField input::placeholder {
+  color: var(--text-light);
+}
+
+.inputField select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%2364748b' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 20px;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background-color: #E2E8F0;
+}
+
+.submitBtn {
+  background-color: var(--accent);
+  color: var(--text-white);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.submitBtn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+/* Mobile responsive styling */
+@media (max-width: 1024px) {
+  .searchForm {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px;
+  }
+  
+  .inputGroup {
+    flex: 1 1 45%;
+    padding: 0;
+  }
+  
+  .divider {
+    display: none;
+  }
+  
+  .submitBtn {
+    flex: 1 1 100%;
+    justify-content: center;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchWrapper {
+    margin-top: -20px;
+  }
+
+  .searchForm {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .inputGroup {
+    flex: none;
+    width: 100%;
+    border-bottom: 1px solid var(--secondary-light);
+    padding-bottom: 12px;
+  }
+  
+  .inputGroup:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .submitBtn {
+    width: 100%;
+  }
+}

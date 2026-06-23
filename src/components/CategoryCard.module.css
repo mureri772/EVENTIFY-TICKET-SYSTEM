@@ -1,0 +1,148 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--bg-card);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  width: 100%;
+  outline: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.iconWrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.icon {
+  transition: transform var(--transition-normal);
+}
+
+.card:hover .icon {
+  transform: scale(1.1);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 2px;
+}
+
+.count {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* Category-specific styling tokens */
+.music .iconWrapper {
+  background-color: rgba(139, 92, 246, 0.1); /* Violet tint */
+  color: #8B5CF6;
+}
+.music:hover {
+  background-color: #8B5CF6;
+}
+
+.business .iconWrapper {
+  background-color: rgba(59, 130, 246, 0.1); /* Blue tint */
+  color: #3B82F6;
+}
+.business:hover {
+  background-color: #3B82F6;
+}
+
+.technology .iconWrapper {
+  background-color: rgba(16, 185, 129, 0.1); /* Emerald tint */
+  color: #10B981;
+}
+.technology:hover {
+  background-color: #10B981;
+}
+
+.sports .iconWrapper {
+  background-color: rgba(239, 68, 68, 0.1); /* Red tint */
+  color: #EF4444;
+}
+.sports:hover {
+  background-color: #EF4444;
+}
+
+.education .iconWrapper {
+  background-color: rgba(245, 158, 11, 0.1); /* Amber tint */
+  color: #F59E0B;
+}
+.education:hover {
+  background-color: #F59E0B;
+}
+
+.festivals .iconWrapper {
+  background-color: rgba(236, 72, 153, 0.1); /* Pink tint */
+  color: #EC4899;
+}
+.festivals:hover {
+  background-color: #EC4899;
+}
+
+/* Active Category State */
+.active.music {
+  background-color: #8B5CF6;
+  border-color: transparent;
+}
+.active.business {
+  background-color: #3B82F6;
+  border-color: transparent;
+}
+.active.technology {
+  background-color: #10B981;
+  border-color: transparent;
+}
+.active.sports {
+  background-color: #EF4444;
+  border-color: transparent;
+}
+.active.education {
+  background-color: #F59E0B;
+  border-color: transparent;
+}
+.active.festivals {
+  background-color: #EC4899;
+  border-color: transparent;
+}
+
+/* Common text white overrides for active or hovered card state */
+.card:hover .name,
+.active .name {
+  color: var(--text-white);
+}
+
+.card:hover .count,
+.active .count {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card:hover .iconWrapper,
+.active .iconWrapper {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--text-white) !important;
+}
