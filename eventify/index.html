@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventify - Discover Nairobi's Best Events</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="logo">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span class="logo-text"><span class="logo-blue">Event</span><span class="logo-orange">ify</span></span>
+      </a>
+
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="auth-buttons">
+        <button class="btn-link">Login</button>
+        <button class="btn btn-primary btn-sm">Sign Up</button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+        <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <div class="mobile-overlay" id="mobileOverlay">
+      <nav class="mobile-nav">
+        <ul class="mobile-links">
+          <li><a href="#" class="mobile-active">Home</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#about">About</a></li>
+          <li class="mobile-auth-divider"></li>
+          <li><button class="mobile-btn-link">Login</button></li>
+          <li><button class="btn btn-primary btn-sm" style="width:100%;padding:14px 0">Sign Up</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+      <div class="glow-blob-1"></div>
+      <div class="glow-blob-2"></div>
+
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge animate-fade-in">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+            <span>Nairobi's Ticketing Platform</span>
+          </div>
+
+          <h1 class="hero-title animate-fade-in-up">
+            Discover <span class="glow-text-blue">Nairobi's</span><br>
+            <span class="glow-text-orange">Best</span> Experiences
+          </h1>
+
+          <p class="hero-description animate-fade-in-up">
+            Concerts, festivals, networking events, fashion shows, sports tournaments
+            and unforgettable nights all in one place.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#events" class="btn btn-primary">
+              Explore Events
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#organizer-cta" class="btn btn-secondary">Become an Organizer</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="scene-container">
+            <div class="neon-backlight"></div>
+
+            <!-- Floating Card 1 -->
+            <div class="floating-card card-1 animate-float">
+              <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80" alt="Live Concert" class="card-img">
+                <span class="tag-music">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                  Music
+                </span>
+              </div>
+              <div class="floating-card-body">
+                <h3 class="floating-card-title">Nairobi Summer Fest</h3>
+                <div class="floating-card-meta">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>July 18, 2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Card 2 -->
+            <div class="floating-card card-2 animate-float-reverse">
+              <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80" alt="FIFA Tournament" class="card-img">
+                <span class="tag-gaming">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                  Gaming
+                </span>
+              </div>
+              <div class="floating-card-body">
+                <h3 class="floating-card-title">FC26 FIFA Tournament</h3>
+                <div class="floating-card-meta">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span>KES 1,000</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="accent-orb"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SEARCH BAR ==================== -->
+    <div class="search-wrapper container">
+      <form class="search-form" id="searchForm">
+        <div class="input-group">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <div class="input-field">
+            <label for="searchQuery">Search Event</label>
+            <input type="text" id="searchQuery" placeholder="What experience are you looking for?">
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="input-group">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <div class="input-field">
+            <label for="location">Location</label>
+            <select id="location">
+              <option value="">Anywhere in Nairobi</option>
+              <option value="Westlands">Westlands</option>
+              <option value="Lang'ata">Lang'ata</option>
+              <option value="Rongai">Rongai</option>
+              <option value="Karen">Karen</option>
+              <option value="Roysambu">Roysambu</option>
+              <option value="Thika">Thika</option>
+              <option value="Ruiru">Ruiru</option>
+              <option value="Ruaka">Ruaka</option>
+              <option value="Umoja">Umoja</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="input-group">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <div class="input-field">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="">All Categories</option>
+              <option value="Sports & Gaming">Sports & Gaming</option>
+              <option value="Education">Education</option>
+              <option value="Music & Live Concerts">Music & Live Concerts</option>
+              <option value="Dance & After Party">Dance & After Party</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Comedy">Comedy</option>
+              <option value="Film">Film</option>
+              <option value="Theatre and Performing Arts">Theatre & Performing Arts</option>
+              <option value="Food & Drinks">Food & Drinks</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="search-submit-btn" aria-label="Search events">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Search</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- ==================== CATEGORIES ==================== -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-glow">Categories</span>
+          <h2 class="section-title">Browse by Category</h2>
+          <p class="section-subtitle">Pick your vibe — sports, music, fashion, comedy and more.</p>
+        </div>
+
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURED EVENTS ==================== -->
+    <section class="section section-bg-dark" id="events">
+      <div class="container">
+        <div class="events-header" id="eventsHeader">
+          <div class="events-heading-group">
+            <span class="badge-glow">Featured Events</span>
+            <h2 class="section-title" id="eventsTitle" style="text-align:left">Hot in Nairobi 🔥</h2>
+            <p class="section-subtitle" id="eventsSubtitle" style="text-align:left">Handpicked trending events this season. Book fast — spots fill up!</p>
+          </div>
+          <button class="clear-btn" id="clearBtn" style="display:none">Clear Filters</button>
+        </div>
+
+        <div class="events-grid" id="eventsGrid"></div>
+
+        <div class="no-results" id="noResults" style="display:none">
+          <span class="no-results-emoji">🎤</span>
+          <p class="no-results-text">No events found for your current filters.</p>
+          <button class="btn btn-primary" id="showAllBtn">Show All Events</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HOW IT WORKS ==================== -->
+    <section class="section section-bg-dark" id="about">
+      <div class="howitworks-glow"></div>
+      <div class="container" style="position:relative;z-index:1">
+        <div class="section-header">
+          <span class="vibe-flow-badge">Vibe Flow</span>
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">Get from finding experiences to scanning tickets in three fast steps.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="icon-wrapper-outer">
+              <div class="step-number">01</div>
+              <div class="icon-wrapper-inner">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+            </div>
+            <div class="connector-line"></div>
+            <h3 class="step-title">Discover Events</h3>
+            <p class="step-description">Filter events by category, location, or name to find what excites you.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="icon-wrapper-outer">
+              <div class="step-number">02</div>
+              <div class="icon-wrapper-inner">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+              </div>
+            </div>
+            <div class="connector-line"></div>
+            <h3 class="step-title">Book Tickets</h3>
+            <p class="step-description">Choose your tickets, pay securely via M-Pesa or card, and checkout instantly.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="icon-wrapper-outer">
+              <div class="step-number">03</div>
+              <div class="icon-wrapper-inner">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+              </div>
+            </div>
+            <h3 class="step-title">Enjoy the Experience</h3>
+            <p class="step-description">Get your digital passes sent to your phone. Scan at the gate and experience the vibe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ORGANIZER CTA ==================== -->
+    <section class="section organizer-section" id="organizer-cta">
+      <div class="organizer-glow"></div>
+      <div class="container" style="position:relative;z-index:1">
+        <div class="organizer-card">
+          <div class="organizer-content">
+            <div class="organizer-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+              <span>Organizer Dashboard</span>
+            </div>
+
+            <h2 class="organizer-title">Ready to Host Your Next Event?</h2>
+            <p class="organizer-text">Create events, sell tickets, track attendees and grow your audience with Eventify. Our powerful tools give you full control over your ticketing experience.</p>
+
+            <div class="organizer-features">
+              <div class="feature-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+                <span>Real-time Sales Insights</span>
+              </div>
+              <div class="feature-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+                <span>Flexible Ticket Tiers</span>
+              </div>
+              <div class="feature-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                <span>Secure Entry Scanning</span>
+              </div>
+            </div>
+
+            <button class="btn btn-accent" style="margin-top:8px">Start Organizing</button>
+          </div>
+
+          <div class="organizer-visual">
+            <div class="dashboard-mock">
+              <div class="mock-header">
+                <div class="mock-dot" style="background:#EF4444"></div>
+                <div class="mock-dot" style="background:#F59E0B"></div>
+                <div class="mock-dot" style="background:#10B981"></div>
+                <span class="mock-title">eventify.co.ke/dashboard</span>
+              </div>
+              <div class="mock-content">
+                <p class="mock-label">Total Ticket Sales</p>
+                <div class="mock-sales-row">
+                  <span class="mock-sales-value">KES 184,500</span>
+                  <span class="mock-growth">↑ 24% this week</span>
+                </div>
+                <div class="mock-chart">
+                  <div class="chart-bar" style="height:40%"></div>
+                  <div class="chart-bar" style="height:65%"></div>
+                  <div class="chart-bar" style="height:55%"></div>
+                  <div class="chart-bar" style="height:85%"></div>
+                  <div class="chart-bar" style="height:95%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section class="section section-bg-dark" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-glow">Reviews</span>
+          <h2 class="section-title">What Nairobi Says 🗣️</h2>
+          <p class="section-subtitle">Real stories from event goers, students, and organizers across Nairobi.</p>
+        </div>
+
+        <div class="testimonials-grid" id="testimonialsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ==================== STATISTICS ==================== -->
+    <section class="section section-bg-dark">
+      <div class="stats-glow-1"></div>
+      <div class="stats-glow-2"></div>
+      <div class="container" style="position:relative;z-index:1">
+        <div class="stats-grid" id="statsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ==================== NEWSLETTER ==================== -->
+    <section class="newsletter-section">
+      <div class="newsletter-glow-1"></div>
+      <div class="newsletter-glow-2"></div>
+      <div class="container" style="position:relative;z-index:1;display:flex;justify-content:center">
+        <div class="newsletter-card">
+          <div class="newsletter-icon-badge">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          </div>
+          <h2 class="newsletter-title">Stay in the Loop</h2>
+          <p class="newsletter-description">Be the first to know about upcoming events, exclusive pre-sales, and weekend vibes in Nairobi.</p>
+
+          <div class="newsletter-success" id="newsletterSuccess" style="display:none">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
+            <div>
+              <h4 class="success-title">You're in! 🎉</h4>
+              <p class="success-text">We'll notify you about the hottest upcoming events.</p>
+            </div>
+          </div>
+
+          <form class="newsletter-form" id="newsletterForm">
+            <div class="newsletter-input-wrapper">
+              <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your email address" aria-label="Email address">
+              <span class="newsletter-error" id="newsletterError"></span>
+            </div>
+            <button type="submit" class="btn btn-accent newsletter-submit">
+              <span>Subscribe</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-top-accent"></div>
+    <div class="container footer-container">
+      <div class="footer-top-row">
+        <div class="footer-brand-col">
+          <a href="#" class="footer-logo">
+            <svg class="footer-logo-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span class="footer-logo-text"><span class="logo-blue">Event</span><span class="logo-orange">ify</span></span>
+          </a>
+          <p class="footer-brand-desc">Nairobi's premier ticketing platform. Discover concerts, gaming tournaments, fashion shows, and unforgettable nightlife — all in one place.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="X (Twitter)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.74a4.85 4.85 0 0 1-1.01-.05z"></path></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Platform</h4>
+          <ul class="footer-links-list">
+            <li><a href="#">Home</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#categories">Categories</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links-list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Legal</h4>
+          <ul class="footer-links-list">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <p class="footer-copyright">&copy; 2026 Eventify. All rights reserved.</p>
+        <p class="footer-credit">
+          Made with
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="color:#EF4444;filter:drop-shadow(0 0 4px rgba(239,68,68,0.5))"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          in Nairobi, Kenya
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
