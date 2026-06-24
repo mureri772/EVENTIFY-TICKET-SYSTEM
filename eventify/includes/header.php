@@ -39,6 +39,15 @@ function isAdmin() {
     return isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 }
 
+function requireAdmin() {
+    requireAuth();
+    if (!isAdmin()) {
+        setFlash('error', 'Admin access required.');
+        header('Location: index.php');
+        exit;
+    }
+}
+
 function requireAuth() {
     if (!isLoggedIn()) {
         $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
@@ -51,15 +60,6 @@ function requireOrganizer() {
     requireAuth();
     if (!isOrganizer()) {
         setFlash('error', 'Organizer access required.');
-        header('Location: index.php');
-        exit;
-    }
-}
-
-function requireAdmin() {
-    requireAuth();
-    if (!isAdmin()) {
-        setFlash('error', 'Admin access required.');
         header('Location: index.php');
         exit;
     }
@@ -222,9 +222,9 @@ function getTestimonials() {
         } catch (PDOException $e) {}
     }
     return [
-        ['id' => 1, 'name' => 'Brian Omondi', 'role' => 'University Student & Gamer', 'avatar_url' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80', 'quote' => 'Eventify makes it super easy for me to find local FIFA tournaments and hiphop gigs. Booking is lightning fast via M-Pesa!', 'rating' => 5],
-        ['id' => 2, 'name' => 'Amani Mwangi', 'role' => 'Young Marketing Professional', 'avatar_url' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80', 'quote' => 'I love the new dark theme and glowing interface! It makes browsing upcoming fashion events feel so exciting.', 'rating' => 4.9],
-        ['id' => 3, 'name' => 'David Kilonzo', 'role' => 'Lead Coordinator', 'company' => 'Nairobi Creative Group', 'avatar_url' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80', 'quote' => 'Hosting the Nairobi Summer Fest on Eventify was a game-changer. We sold out in record time!', 'rating' => 5]
+        ['id' => 1, 'name' => 'Brian Omondi', 'role' => 'University Student & Gamer', 'avatar_url' => 'images/avatars/brian-omondi.jpg', 'quote' => 'Eventify makes it super easy for me to find local FIFA tournaments and hiphop gigs. Booking is lightning fast via M-Pesa!', 'rating' => 5],
+        ['id' => 2, 'name' => 'Amani Mwangi', 'role' => 'Young Marketing Professional', 'avatar_url' => 'images/avatars/amani-mwangi.jpg', 'quote' => 'I love the new dark theme and glowing interface! It makes browsing upcoming fashion events feel so exciting.', 'rating' => 4.9],
+        ['id' => 3, 'name' => 'David Kilonzo', 'role' => 'Lead Coordinator', 'company' => 'Nairobi Creative Group', 'avatar_url' => 'images/avatars/david-kilonzo.jpg', 'quote' => 'Hosting the Nairobi Summer Fest on Eventify was a game-changer. We sold out in record time!', 'rating' => 5]
     ];
 }
 

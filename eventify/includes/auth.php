@@ -1,18 +1,27 @@
 <?php
 /**
  * Eventify - Auth Functions
+ * This file is included by login.php and register.php
+ * Do NOT include header.php here - those pages have their own layout.
  */
-require_once 'header.php';
+
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Include database functions from header.php without outputting HTML
+require_once __DIR__ . '/header.php';
 
 function loginUser($email, $password) {
     $db = getDB();
     if (!$db) {
-        // Demo fallback
+        // Demo fallback - ensure admin role is 'admin'
         if ($email === 'admin@eventify.co.ke' && $password === 'admin123') {
             $_SESSION['user_id'] = 1;
             $_SESSION['user_name'] = 'Admin User';
             $_SESSION['user_email'] = $email;
-            $_SESSION['user_role'] = 'organizer';
+            $_SESSION['user_role'] = 'admin';  // FIXED: was 'organizer'
             return ['success' => true];
         }
         return ['success' => false, 'message' => 'Database connection failed.'];

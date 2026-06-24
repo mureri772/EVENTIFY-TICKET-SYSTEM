@@ -254,7 +254,7 @@ $pageTitle = 'Admin Panel - Eventify';
           </div>
           <div class="form-group">
             <label class="form-label" for="password">Password *</label>
-            <input type="text" id="password" name="password" class="form-input" placeholder="Min 6 characters" required>
+            <input type="password" id="password" name="password" class="form-input" placeholder="Min 6 characters" required>
           </div>
         </div>
 
