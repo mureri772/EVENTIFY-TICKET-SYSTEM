@@ -319,7 +319,7 @@ $relatedEvents = $stmt->fetchAll();
       <article class="event-card <?php echo $glowClass; ?>">
         <div class="event-image-container">
           <img src="<?php echo htmlspecialchars($evt['image_url']); ?>" alt="<?php echo htmlspecialchars($evt['title']); ?>" class="event-image" loading="lazy">
-          <span class="event-category-tag"><?php echo htmlspecialchars($evt['category_name'] ?? $evt['category']); ?></span>
+          <span class="event-category-tag"><?php echo htmlspecialchars($evt['title']); ?></span>
         </div>
         <div class="event-content">
           <div class="event-meta-row">
