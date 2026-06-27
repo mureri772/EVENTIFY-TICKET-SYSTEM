@@ -108,7 +108,7 @@ function getFeaturedEvents() {
     $db = getDB();
     if ($db) {
         try {
-            $stmt = $db->query("SELECT e.*, c.name as category_name, c.slug as category_slug FROM events e LEFT JOIN categories c ON e.category_id = c.id WHERE e.status = 'active' AND e.is_featured = 1 ORDER BY e.date LIMIT 6");
+            $stmt = $db->query("SELECTe.*,c.name AS category_name,c.slug AS category_slug FROM events eLEFT JOIN categories cON e.category_id = c.idWHERE e.status = 'active'AND e.is_featured = 1ORDER BY e.dateLIMIT 6;");
             $events = $stmt->fetchAll();
             if ($events) return $events;
         } catch (PDOException $e) {}

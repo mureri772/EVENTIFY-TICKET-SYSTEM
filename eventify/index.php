@@ -6,7 +6,7 @@ require_once 'includes/header.php';
 
 // Load data from database
 $categories = getCategories();
-$events = getFeaturedEvents();
+$events = getAllEvents();
 $testimonials = getTestimonials();
 $stats = getStats();
 
@@ -36,7 +36,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
       </p>
 
       <div class="hero-actions">
-        <a href="#events" class="btn btn-primary">
+        <a href="explore-events.php" class="btn btn-primary">
           Explore Events
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
@@ -212,7 +212,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
       <div class="no-results" style="display:flex; grid-column: 1/-1;">
         <span class="no-results-emoji">&#127908;</span>
         <p class="no-results-text">No events found for your current filters.</p>
-        <a href="index.php#events" class="btn btn-primary">Show All Events</a>
+        <a href="explore-events.php" class="btn btn-primary">Show All Events</a>
       </div>
       <?php
       else:
