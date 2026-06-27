@@ -13,7 +13,6 @@ $stats = getStats();
 // Get user's likes if logged in
 $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 ?>
-
 <!-- ==================== HERO ==================== -->
 <section class="hero">
   <div class="glow-blob-1"></div>
@@ -37,7 +36,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
       </p>
 
       <div class="hero-actions">
-        <a href="explore-events.php" class="btn btn-primary">
+        <a href="#events" class="btn btn-primary">
           Explore Events
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
@@ -158,7 +157,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
       <?php foreach ($categories as $cat):
         $isActive = ($_GET['category'] ?? '') === $cat['name'];
       ?>
-      <a href="explore-events.php#<?php echo htmlspecialchars($cat['slug']); ?>" class="category-card <?php echo $cat['theme']; ?> <?php echo $isActive ? 'active' : ''; ?>" data-category="<?php echo htmlspecialchars($cat['name']); ?>">
+      <a href="?category=<?php echo urlencode($cat['name']); ?>#events" class="category-card <?php echo $cat['theme']; ?> <?php echo $isActive ? 'active' : ''; ?>" data-category="<?php echo htmlspecialchars($cat['name']); ?>">
         <div class="category-icon-wrapper">
           <?php
           // Output SVG icon based on icon name
@@ -398,7 +397,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
           <img src="<?php echo htmlspecialchars($t['avatar_url']); ?>" alt="<?php echo htmlspecialchars($t['name']); ?>" class="user-avatar" loading="lazy">
           <div class="user-info">
             <h4 class="user-name"><?php echo htmlspecialchars($t['name']); ?></h4>
-            <p class="user-role"><?php echo htmlspecialchars($t['role']); ?><?php echo $t['company'] ? ' at ' . htmlspecialchars($t['company']) : ''; ?></p>
+           <p class="user-role"><?php echo htmlspecialchars($t['role']); ?><?php echo !empty($t['company']) ? ' at ' . htmlspecialchars($t['company']) : ''; ?></p>
           </div>
         </div>
       </div>
