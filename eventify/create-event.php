@@ -656,17 +656,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = getDB();
             $categories = $db->query("SELECT id, name FROM categories ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
             ?>
-
-            <select name="category" id="category" required>
-              <option value="">Select category</option>
-
-              <?php foreach ($categories as $cat): ?>
-                <option value="<?= $cat['name'] ?>">
-                  <?= htmlspecialchars($cat['name']) ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-
+            <div class="form-group">
+              <select name="category" id="category" required>
+                <option value="">Select category</option>
+                <?php foreach ($categories as $cat): ?>
+                  <option value="<?= $cat['name'] ?>">
+                    <?= htmlspecialchars($cat['name']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
             <!-- Location -->
             <div class="form-group">
               <label for="location">Location *</label>
