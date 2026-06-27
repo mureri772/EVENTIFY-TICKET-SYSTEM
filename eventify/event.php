@@ -17,12 +17,24 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 $isLiked = in_array($event['id'], $userLikes);
 
 $pageTitle = htmlspecialchars($event['title']) . ' - Eventify';
-
 // Get related events
 $db = getDB();
-$stmt = $db->prepare("SELECT * FROM events WHERE category_id = ? AND id != ? AND status = 'active' LIMIT 3");
+$stmt = $db->prepare("
+    SELECT
+        e.*,
+        c.name AS category_name,
+        c.slug AS category_slug,
+        c.icon AS category_icon
+    FROM events e
+    LEFT JOIN categories c
+        ON e.category_id = c.id
+    WHERE e.category_id = ?
+      AND e.id != ?
+      AND e.status = 'active'
+    LIMIT 3
+");
 $stmt->execute([$event['category_id'], $event['id']]);
-$relatedEvents = $stmt->fetchAll();
+$relatedEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <style>
@@ -319,7 +331,7 @@ $relatedEvents = $stmt->fetchAll();
       <article class="event-card <?php echo $glowClass; ?>">
         <div class="event-image-container">
           <img src="<?php echo htmlspecialchars($evt['image_url']); ?>" alt="<?php echo htmlspecialchars($evt['title']); ?>" class="event-image" loading="lazy">
-          <span class="event-category-tag"><?php echo htmlspecialchars($evt['title']); ?></span>
+          <span class="event-category-tag"><?php echo htmlspecialchars($evt['category_name']); ?></span>
         </div>
         <div class="event-content">
           <div class="event-meta-row">

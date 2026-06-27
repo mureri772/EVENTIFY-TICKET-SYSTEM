@@ -16,7 +16,7 @@ function loginUser($email, $password) {
             $_SESSION['user_email'] = $email;
             $_SESSION['user_role'] = 'admin';  // FIXED: was 'organizer'
             return ['success' => true];
-        }
+        } 
         return ['success' => false, 'message' => 'Database connection failed.'];
     }
     
@@ -67,8 +67,21 @@ function registerUser($fullName, $email, $password, $phone = '', $role = 'user')
 }
 
 function logoutUser() {
-    session_destroy();
     $_SESSION = [];
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(
+            session_name(),
+            '',
+            time() - 42000,
+            $params["path"],
+            $params["domain"],
+            $params["secure"],
+            $params["httponly"]
+        );
+    }
+
+    session_destroy();
 }
 
 function changePassword($userId, $current, $new) {
