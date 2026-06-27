@@ -1,10 +1,5 @@
 <?php
-/**
- * Eventify - Header Include
- */
 session_start();
-
-// Database configuration - adjust if needed
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');

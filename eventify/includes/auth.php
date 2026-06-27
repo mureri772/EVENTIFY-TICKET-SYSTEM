@@ -1,11 +1,4 @@
 <?php
-/**
- * Eventify - Auth Functions
- * This file is included by login.php and register.php
- * Do NOT include header.php here - those pages have their own layout.
- */
-
-// Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

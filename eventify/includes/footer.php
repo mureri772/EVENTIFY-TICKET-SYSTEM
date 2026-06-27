@@ -1,7 +1,4 @@
 <?php
-/**
- * Eventify - Footer Include
- */
 ?>
   <!-- Footer -->
   <footer class="footer">

@@ -1,7 +1,5 @@
 <?php
-/**
- * Eventify - Admin Panel (Add/Manage Admins)
- */
+
 require_once 'includes/header.php';
 requireAdmin();
 

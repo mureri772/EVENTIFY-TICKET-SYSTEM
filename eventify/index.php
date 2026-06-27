@@ -13,7 +13,6 @@ $stats = getStats();
 // Get user's likes if logged in
 $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 ?>
-
 <!-- ==================== HERO ==================== -->
 <section class="hero">
   <div class="glow-blob-1"></div>

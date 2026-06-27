@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
-/* ═══════════════════════════════════════════════
-   EVENTIFY — PREMIUM DARK DESIGN SYSTEM
-   Pure HTML/CSS/JS — No Frameworks
-   ═══════════════════════════════════════════════ */
+
 
 :root {
-  /* Colors */
+
   --primary: #2563EB;
   --primary-hover: #3B82F6;
   --primary-light: rgba(37, 99, 235, 0.15);
@@ -19,19 +16,17 @@
   --accent-hover: #FB923C;
   --accent-light: rgba(249, 115, 22, 0.15);
 
-  /* Backgrounds */
   --bg-body: #000000;
   --bg-section-dark: #0F172A;
   --bg-card: #111827;
   --bg-card-hover: #1F2937;
 
-  /* Text */
   --text-primary: #FFFFFF;
   --text-secondary: #CBD5E1;
   --text-muted: #94A3B8;
   --text-white: #FFFFFF;
 
-  /* Status Colors */
+
   --success: #10B981;
   --warning: #F59E0B;
   --error: #EF4444;
@@ -64,9 +59,6 @@
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ═══════════════════════════════════════════════
-   BASE RESET
-   ═══════════════════════════════════════════════ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -85,9 +77,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ═══════════════════════════════════════════════
-   TYPOGRAPHY
-   ═══════════════════════════════════════════════ */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
@@ -102,9 +91,6 @@ a {
   transition: all var(--transition-fast);
 }
 
-/* ═══════════════════════════════════════════════
-   LAYOUT
-   ═══════════════════════════════════════════════ */
 .container {
   width: 100%;
   max-width: var(--max-width);
@@ -144,9 +130,6 @@ a {
   color: var(--text-secondary);
 }
 
-/* ═══════════════════════════════════════════════
-   BUTTONS
-   ═══════════════════════════════════════════════ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -204,9 +187,6 @@ a {
 
 .btn:active { transform: translateY(0); }
 
-/* ═══════════════════════════════════════════════
-   BADGES
-   ═══════════════════════════════════════════════ */
 .badge-glow {
   display: inline-flex;
   align-items: center;
@@ -237,9 +217,6 @@ a {
   font-family: var(--font-sans);
 }
 
-/* ═══════════════════════════════════════════════
-   ANIMATIONS
-   ═══════════════════════════════════════════════ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -300,9 +277,6 @@ a {
   animation: float-reverse 7s ease-in-out infinite;
 }
 
-/* ═══════════════════════════════════════════════
-   SCROLLBAR
-   ═══════════════════════════════════════════════ */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-body); }
 ::-webkit-scrollbar-thumb {
@@ -312,9 +286,7 @@ a {
 }
 ::-webkit-scrollbar-thumb:hover { background: #334155; }
 
-/* ═══════════════════════════════════════════════
-   NAVBAR
-   ═══════════════════════════════════════════════ */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -514,9 +486,6 @@ a {
 
 .mobile-btn-link:hover { color: var(--text-white); }
 
-/* ═══════════════════════════════════════════════
-   HERO
-   ═══════════════════════════════════════════════ */
 .hero {
   position: relative;
   padding: 180px 0 120px;
@@ -742,9 +711,7 @@ a {
   animation: float 5s ease-in-out infinite;
 }
 
-/* ═══════════════════════════════════════════════
-   SEARCH BAR
-   ═══════════════════════════════════════════════ */
+
 .search-wrapper {
   margin-top: -50px;
   position: relative;
@@ -860,9 +827,6 @@ a {
 
 .search-submit-btn:active { transform: translateY(0); }
 
-/* ═══════════════════════════════════════════════
-   CATEGORIES
-   ═══════════════════════════════════════════════ */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -983,9 +947,6 @@ a {
 .category-card.active .category-count { color: var(--text-primary); }
 .category-card.active .category-icon-wrapper { transform: scale(1.1); }
 
-/* ═══════════════════════════════════════════════
-   EVENTS
-   ═══════════════════════════════════════════════ */
 .events-header {
   display: flex;
   justify-content: space-between;
@@ -1029,7 +990,6 @@ a {
   gap: 28px;
 }
 
-/* Event Card */
 .event-card {
   background-color: var(--bg-card);
   border-radius: var(--border-radius-lg);
@@ -1232,9 +1192,6 @@ a {
 .no-results-emoji { font-size: 3rem; }
 .no-results-text { font-size: 1.1rem; font-weight: 600; color: var(--text-secondary); }
 
-/* ═══════════════════════════════════════════════
-   HOW IT WORKS
-   ═══════════════════════════════════════════════ */
 .howitworks-glow {
   position: absolute;
   top: 50%;
@@ -1349,9 +1306,7 @@ a {
   pointer-events: none;
 }
 
-/* ═══════════════════════════════════════════════
-   ORGANIZER CTA
-   ═══════════════════════════════════════════════ */
+
 .organizer-section {
   padding: 100px 0;
   background-color: var(--bg-section-dark);
@@ -1541,9 +1496,6 @@ a {
   border-radius: 4px 4px 0 0;
 }
 
-/* ═══════════════════════════════════════════════
-   TESTIMONIALS
-   ═══════════════════════════════════════════════ */
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1646,9 +1598,6 @@ a {
   font-weight: 500;
 }
 
-/* ═══════════════════════════════════════════════
-   STATISTICS
-   ═══════════════════════════════════════════════ */
 .stats-glow-1 {
   position: absolute;
   top: -20%;
@@ -1734,9 +1683,7 @@ a {
 
 .stat-description { font-size: 0.85rem; color: var(--text-muted); }
 
-/* ═══════════════════════════════════════════════
-   NEWSLETTER
-   ═══════════════════════════════════════════════ */
+
 .newsletter-section {
   padding: 100px 0;
   background-color: var(--bg-body);
@@ -1903,9 +1850,6 @@ a {
 
 .success-text { font-size: 0.875rem; color: #6EE7B7; }
 
-/* ═══════════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════════ */
 .footer {
   background-color: #050A14;
   color: var(--text-primary);
@@ -2036,9 +1980,6 @@ a {
   gap: 5px;
 }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════ */
 @media (max-width: 1024px) {
   .hero-title { font-size: 3rem; }
   .hero-container { gap: 40px; }
