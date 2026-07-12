@@ -13,7 +13,7 @@ $stats = getStats();
 // Get user's likes if logged in
 $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 ?>
-<!-- ==================== HERO ==================== -->
+<!-- HERO  -->
 <section class="hero">
   <div class="glow-blob-1"></div>
   <div class="glow-blob-2"></div>
@@ -412,23 +412,23 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
   <div class="stats-glow-2"></div>
   <div class="container" style="position:relative;z-index:1">
     <div class="stats-grid" id="statsGrid">
-      <div class="stat-card" data-target="500" data-suffix="+">
-        <span class="stat-value">0+</span>
+      <div class="stat-card" data-target="50" data-suffix="+">
+        <span class="stat-value">50+</span>
         <h3 class="stat-label">Active Users</h3>
         <p class="stat-description">Joining the network</p>
       </div>
-      <div class="stat-card" data-target="<?php echo $stats['events'] * 10; ?>" data-suffix="+">
-        <span class="stat-value">0+</span>
+      <div class="stat-card" data-target="<?php echo $stats['events'] * 100; ?>" data-suffix="+">
+        <span class="stat-value">100+</span>
         <h3 class="stat-label">Events Hosted</h3>
         <p class="stat-description">Concerts, comedy, gaming &amp; more</p>
       </div>
-      <div class="stat-card" data-target="5000" data-suffix="+">
-        <span class="stat-value">0+</span>
+      <div class="stat-card" data-target="500" data-suffix="+">
+        <span class="stat-value">500+</span>
         <h3 class="stat-label">Tickets Sold</h3>
         <p class="stat-description">Fast digital M-Pesa bookings</p>
       </div>
       <div class="stat-card" data-target="10" data-suffix="+">
-        <span class="stat-value">0+</span>
+        <span class="stat-value">10+</span>
         <h3 class="stat-label">Locations</h3>
         <p class="stat-description">Covering key Nairobi estates</p>
       </div>

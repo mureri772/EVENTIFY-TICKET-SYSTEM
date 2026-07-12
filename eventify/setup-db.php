@@ -76,6 +76,9 @@ try {
         total_price INT NOT NULL DEFAULT 0,
         ticket_code VARCHAR(50) UNIQUE,
         payment_status ENUM('pending', 'paid', 'failed', 'refunded') DEFAULT 'pending',
+        mpesa_checkout_request_id VARCHAR(100) DEFAULT NULL,
+        mpesa_merchant_request_id VARCHAR(100) DEFAULT NULL,
+        mpesa_receipt_number VARCHAR(100) DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
         FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE

@@ -13,6 +13,277 @@ if (!$event) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mpesa_pay'])) {
+    if (!isLoggedIn()) {
+        setFlash('error', 'Please login before making a payment.');
+        header('Location: login.php');
+        exit;
+    }
+
+    $quantity = max(1, min(10, intval($_POST['quantity'] ?? 1)));
+    $phone = formatMpesaPhone(trim($_POST['phone_number'] ?? ''));
+
+    if (!$phone) {
+        setFlash('error', 'Enter a valid phone number in Kenyan format, for example 254712345678.');
+        header("Location: event.php?id={$eventId}");
+        exit;
+    }
+
+    $amount = $event['price'] * $quantity;
+    $ticketCode = generateTicketCode();
+    $description = 'Tickets for ' . $event['title'];
+
+    if (!insertPendingTicket($_SESSION['user_id'], $event['id'], $quantity, $amount, $ticketCode)) {
+        setFlash('error', 'Unable to initialize ticket booking. Please try again later.');
+        header("Location: event.php?id={$eventId}");
+        exit;
+    }
+
+    $result = initiateMpesaStkPush($phone, $amount, $ticketCode, $description);
+
+    if ($result['success']) {
+        if (!empty($result['checkout_request_id']) || !empty($result['merchant_request_id'])) {
+            updateTicketStkIdentifiers($ticketCode, $result['checkout_request_id'] ?? null, $result['merchant_request_id'] ?? null);
+        }
+        setFlash('success', 'STK Push sent. Check your phone to complete payment.');
+    } else {
+        updateTicketStatusByTicketCode($ticketCode, 'failed');
+        setFlash('error', 'MPesa payment failed: ' . $result['message']);
+    }
+
+    header("Location: event.php?id={$eventId}");
+    exit;
+}
+
+function formatMpesaPhone($phone) {
+    $phone = preg_replace('/\D+/', '', $phone);
+    if (strlen($phone) === 10 && strpos($phone, '07') === 0) {
+        return '254' . substr($phone, 1);
+    }
+    if (strlen($phone) === 12 && strpos($phone, '254') === 0) {
+        return $phone;
+    }
+    return '';
+}
+
+function generateTicketCode() {
+    return 'EVT' . strtoupper(substr(bin2hex(random_bytes(4)), 0, 8));
+}
+
+function ensureMpesaTicketColumns() {
+    $db = getDB();
+    if (!$db) {
+        return;
+    }
+
+    try {
+        $stmt = $db->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tickets' AND COLUMN_NAME IN ('mpesa_checkout_request_id','mpesa_merchant_request_id','mpesa_receipt_number')");
+        $stmt->execute();
+        $columns = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        if (!in_array('mpesa_checkout_request_id', $columns, true)) {
+            $db->exec("ALTER TABLE tickets ADD COLUMN mpesa_checkout_request_id VARCHAR(100) DEFAULT NULL");
+        }
+        if (!in_array('mpesa_merchant_request_id', $columns, true)) {
+            $db->exec("ALTER TABLE tickets ADD COLUMN mpesa_merchant_request_id VARCHAR(100) DEFAULT NULL");
+        }
+        if (!in_array('mpesa_receipt_number', $columns, true)) {
+            $db->exec("ALTER TABLE tickets ADD COLUMN mpesa_receipt_number VARCHAR(100) DEFAULT NULL");
+        }
+    } catch (PDOException $e) {
+        // Ignore schema update failures, continue gracefully.
+    }
+}
+
+function insertPendingTicket($userId, $eventId, $quantity, $totalPrice, $ticketCode) {
+    $db = getDB();
+    if (!$db) {
+        return false;
+    }
+    ensureMpesaTicketColumns();
+
+    try {
+        $stmt = $db->prepare("INSERT INTO tickets (user_id, event_id, quantity, total_price, ticket_code, payment_status, created_at) VALUES (?, ?, ?, ?, ?, 'pending', NOW())");
+        return $stmt->execute([$userId, $eventId, $quantity, $totalPrice, $ticketCode]);
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function updateTicketStkIdentifiers($ticketCode, $checkoutRequestId, $merchantRequestId) {
+    $db = getDB();
+    if (!$db) {
+        return false;
+    }
+    try {
+        $stmt = $db->prepare("UPDATE tickets SET mpesa_checkout_request_id = ?, mpesa_merchant_request_id = ? WHERE ticket_code = ?");
+        return $stmt->execute([$checkoutRequestId, $merchantRequestId, $ticketCode]);
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function updateTicketStatusByTicketCode($ticketCode, $status) {
+    $db = getDB();
+    if (!$db) {
+        return false;
+    }
+    try {
+        $stmt = $db->prepare("UPDATE tickets SET payment_status = ? WHERE ticket_code = ?");
+        return $stmt->execute([$status, $ticketCode]);
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function updateTicketStatusByCheckoutId($checkoutRequestId, $status, $receiptNumber = null) {
+    $db = getDB();
+    if (!$db) {
+        return false;
+    }
+    try {
+        $stmt = $db->prepare("UPDATE tickets SET payment_status = ?, mpesa_receipt_number = ? WHERE mpesa_checkout_request_id = ?");
+        return $stmt->execute([$status, $receiptNumber, $checkoutRequestId]);
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
+function getMpesaConfig() {
+    return [
+        'consumer_key' => 'PTcfOiuvZyveUJeQVWwhKbohdyg1y4MAo38HcSu3jDLUNwWm',
+        'consumer_secret' => 'ju5aIaPB0dxS5lLJv0gLd3WUE0IgFuoA08JBJBW4vXansLQA72ATcQ01oXnuwbbq',
+        'short_code' => '174379',
+        'passkey' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919',
+        'callback_url' => 'https://webhook.site/24752df6-015a-4861-ad1d-eb3ea85171cf',
+        'sandbox_url' => 'https://sandbox.safaricom.co.ke'
+    ];
+}
+
+function validateMpesaConfig(array $config) {
+    if (empty($config['consumer_key']) || empty($config['consumer_secret'])) {
+        return ['success' => false, 'message' => 'M-Pesa sandbox consumer key/secret are missing. Add them in getMpesaConfig() or your config file.'];
+    }
+    if (empty($config['passkey'])) {
+        return ['success' => false, 'message' => 'M-Pesa sandbox passkey is missing. Add it in getMpesaConfig() or your config file.'];
+    }
+    if (empty($config['callback_url']) || strpos($config['callback_url'], 'yourdomain.com') !== false) {
+        return ['success' => false, 'message' => 'Set a valid M-Pesa callback URL in getMpesaConfig() before using the payment gateway.'];
+    }
+    return ['success' => true];
+}
+
+function getMpesaAccessToken($consumerKey, $consumerSecret) {
+    if (empty($consumerKey) || empty($consumerSecret)) {
+        return ['success' => false, 'message' => 'M-Pesa consumer key or secret is missing. Please configure your sandbox credentials.'];
+    }
+
+    $url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+    $ch = curl_init($url);
+    if (!function_exists('curl_init') || !$ch) {
+        return ['success' => false, 'message' => 'cURL is not available or could not be initialized.'];
+    }
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, $consumerKey . ':' . $consumerSecret);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Accept: application/json'
+    ]);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Sandbox/dev only. Remove or set true in production.
+
+    $response = curl_exec($ch);
+    $curlError = curl_error($ch);
+    $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($response === false) {
+        return ['success' => false, 'message' => 'cURL error while requesting token: ' . $curlError];
+    }
+
+    $data = json_decode($response, true);
+    $body = is_array($data) ? json_encode($data) : $response;
+
+    if ($httpStatus !== 200) {
+        return ['success' => false, 'message' => 'Token request HTTP ' . $httpStatus . ': ' . ($body ?: 'Check your credentials and sandbox account configuration.')] ;
+    }
+
+    if (!is_array($data) || !isset($data['access_token'])) {
+        return ['success' => false, 'message' => 'Invalid token response: ' . ($body ?: 'No response body returned. Verify your credentials.')];
+    }
+
+    return ['success' => true, 'access_token' => $data['access_token']];
+}
+
+function getMpesaPassword($shortCode, $passkey, $timestamp) {
+    return base64_encode($shortCode . $passkey . $timestamp);
+}
+
+function initiateMpesaStkPush($phone, $amount, $accountReference, $transactionDesc) {
+    $config = getMpesaConfig();
+    $validate = validateMpesaConfig($config);
+    if (!$validate['success']) {
+        return ['success' => false, 'message' => $validate['message']];
+    }
+
+    $consumerKey = $config['consumer_key'];
+    $consumerSecret = $config['consumer_secret'];
+    $shortCode = $config['short_code'];
+    $passkey = $config['passkey'];
+    $callbackUrl = $config['callback_url'];
+    $timestamp = gmdate('YmdHis');
+
+    $tokenResult = getMpesaAccessToken($consumerKey, $consumerSecret);
+    if (!$tokenResult['success']) {
+        return $tokenResult;
+    }
+
+    $payload = [
+        'BusinessShortCode' => $shortCode,
+        'Password' => getMpesaPassword($shortCode, $passkey, $timestamp),
+        'Timestamp' => $timestamp,
+        'TransactionType' => 'CustomerPayBillOnline',
+        'Amount' => $amount,
+        'PartyA' => $phone,
+        'PartyB' => $shortCode,
+        'PhoneNumber' => $phone,
+        'CallBackURL' => $callbackUrl,
+        'AccountReference' => $accountReference,
+        'TransactionDesc' => $transactionDesc
+    ];
+
+    $ch = curl_init('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest');
+    if (!$ch) {
+        return ['success' => false, 'message' => 'Unable to initialize cURL for STK Push.'];
+    }
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $tokenResult['access_token']
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($response === false) {
+        return ['success' => false, 'message' => 'cURL error during STK Push: ' . $curlError];
+    }
+
+    $result = json_decode($response, true);
+    if (!is_array($result)) {
+        return ['success' => false, 'message' => 'Invalid STK Push response.'];
+    }
+
+    if (isset($result['ResponseCode']) && $result['ResponseCode'] === '0') {
+        return ['success' => true, 'message' => 'STK push successfully initiated. CheckoutRequestID: ' . ($result['CheckoutRequestID'] ?? 'unknown')];
+    }
+
+    return ['success' => false, 'message' => $result['errorMessage'] ?? ($result['errorMessage'] ?? json_encode($result))];
+}
+
 $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 $isLiked = in_array($event['id'], $userLikes);
 
@@ -291,28 +562,38 @@ $relatedEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="booking-card">
         <h3 class="booking-card-title">Book Tickets</h3>
 
-        <div>
-          <label style="display:block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Quantity</label>
-          <div class="qty-selector">
-            <button class="qty-btn" onclick="updateQty(-1)">-</button>
-            <span class="qty-value" id="qtyValue">1</span>
-            <button class="qty-btn" onclick="updateQty(1)">+</button>
+        <form id="bookingForm" method="POST" action="event.php?id=<?php echo $event['id']; ?>">
+          <input type="hidden" name="mpesa_pay" value="1">
+          <input type="hidden" name="quantity" id="quantityInput" value="1">
+
+          <div style="margin-bottom: 18px;">
+            <label style="display:block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Phone Number</label>
+            <input id="phoneNumber" name="phone_number" type="tel" placeholder="2547XXXXXXXX" value="<?php echo htmlspecialchars($_SESSION['user_phone'] ?? ''); ?>" style="width:100%; padding:14px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:var(--text-primary);" required>
           </div>
-        </div>
 
-        <div class="total-row">
-          <span class="total-label">Total</span>
-          <span class="total-value" id="totalPrice">KES <?php echo number_format($event['price']); ?></span>
-        </div>
+          <div>
+            <label style="display:block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Quantity</label>
+            <div class="qty-selector">
+              <button type="button" class="qty-btn" onclick="updateQty(-1)">-</button>
+              <span class="qty-value" id="qtyValue">1</span>
+              <button type="button" class="qty-btn" onclick="updateQty(1)">+</button>
+            </div>
+          </div>
 
-        <button class="btn btn-primary btn-full" onclick="bookNow()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
-          Proceed to Payment
-        </button>
+          <div class="total-row">
+            <span class="total-label">Total</span>
+            <span class="total-value" id="totalPrice">KES <?php echo number_format($event['price']); ?></span>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-full" onclick="bookNow()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+            Proceed to Payment
+          </button>
+        </form>
 
         <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
-          Secure M-Pesa & Card payments
+          Secure M-Pesa payments
         </p>
       </div>
     </div>
@@ -368,15 +649,26 @@ function updateQty(change) {
   qty = Math.max(1, Math.min(10, qty + change));
   document.getElementById('qtyValue').textContent = qty;
   document.getElementById('totalPrice').textContent = 'KES ' + (ticketPrice * qty).toLocaleString();
+  document.getElementById('quantityInput').value = qty;
 }
 
 function bookNow() {
   <?php if (!isLoggedIn()): ?>
-  alert('Please login to book tickets.');
-  window.location.href = 'login.php';
-  <?php else: ?>
-  alert('Booking ' + qty + ' ticket(s) for "<?php echo addslashes($event['title']); ?>"\n\nTotal: KES ' + (ticketPrice * qty).toLocaleString() + '\n\nM-Pesa payment integration coming soon!');
+  window.location.href = 'login.php?redirect=event.php?id=<?php echo $event['id']; ?>';
+  return;
   <?php endif; ?>
+
+  const phoneField = document.getElementById('phoneNumber');
+  const phone = phoneField.value.trim();
+
+  if (!phone) {
+    alert('Please enter your phone number in the format 2547XXXXXXXX.');
+    phoneField.focus();
+    return;
+  }
+
+  document.getElementById('quantityInput').value = qty;
+  document.getElementById('bookingForm').submit();
 }
 </script>
 
