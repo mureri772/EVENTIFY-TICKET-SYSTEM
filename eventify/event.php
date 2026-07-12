@@ -553,11 +553,23 @@ $relatedEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h2 class="desc-title" style="margin-top: 40px;">Location</h2>
         <p class="desc-text"><?php echo htmlspecialchars($event['location']); ?></p>
-        <div style="margin-top: 16px; background: var(--bg-card); border-radius: 16px; padding: 40px; text-align: center; color: var(--text-muted);">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin: 0 auto 12px; opacity: 0.5;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-          <p>Interactive map coming soon</p>
+        <div id="googleMap"
+           style="width:100%;
+            height:400px;
+            border-radius:16px;
+            overflow:hidden;
+            margin-top:16px;">
         </div>
-      </div>
+
+         <div style="margin-top:15px;">
+         <a
+          class="btn btn-primary"
+          target="_blank"
+          href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($event['location']); ?>">
+          📍 Get Directions
+         </a>
+         </div>
+    </div>
 
       <div class="booking-card">
         <h3 class="booking-card-title">Book Tickets</h3>
