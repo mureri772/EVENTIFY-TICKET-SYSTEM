@@ -7,7 +7,6 @@ $db = getDB();
 $error = '';
 $success = '';
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 

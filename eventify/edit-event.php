@@ -1,7 +1,5 @@
 <?php
-/**
- * Eventify - Edit Event Page
- */
+
 require_once 'includes/header.php';
 requireOrganizer();
 
@@ -50,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'status' => $status
         ];
 
-        // Handle image upload
+    
         if (!empty($_FILES['image']['tmp_name'])) {
             $uploadDir = 'images/events/';
             $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
@@ -274,7 +272,6 @@ $pageTitle = 'Edit Event - Eventify';
         </div>
       </form>
 
-      <!-- Delete Section -->
       <div class="delete-section">
         <h3 style="color: #EF4444; font-size: 1.1rem; margin-bottom: 8px;">Danger Zone</h3>
         <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">Once deleted, this event cannot be recovered.</p>

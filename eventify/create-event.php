@@ -1,11 +1,9 @@
 <?php
-/**
- * Eventify - Create Event (Organizer Only)
- */
+
 require_once 'includes/header.php';
 requireAuth();
 
-// Restrict to organizers only
+
 if (!isOrganizer()) {
   header('Location: dashboard.php');
   exit;
@@ -18,7 +16,7 @@ $activePage = 'create-event';
 $errors = [];
 $successMsg = '';
 
-// Process form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $title = trim($_POST['title'] ?? '');
   $description = trim($_POST['description'] ?? '');
@@ -30,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $capacity = intval($_POST['capacity'] ?? 0);
   $status = trim($_POST['status'] ?? 'draft');
 
-  // Basic validation
+ 
   if (empty($title))
     $errors[] = 'Event title is required.';
   if (empty($description))
@@ -48,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($capacity < 1)
     $errors[] = 'Capacity must be at least 1.';
 
-  // Handle image upload
+  
   $imageUrl = 'images/events/default.jpg';
   if (!empty($_FILES['event_image']['name'])) {
     $allowed = ['jpg', 'jpeg', 'png', 'webp'];
@@ -74,13 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  // If no errors, save to database (wire up your DB function here)
-  // Save event
+
   if (empty($errors)) {
     try {
       $db = getDB();
-
-      // Get category ID from category name
       $stmt = $db->prepare("SELECT id FROM categories WHERE name = ?");
       $stmt->execute([$category]);
       $categoryId = $stmt->fetchColumn();

@@ -1,7 +1,5 @@
 <?php
-/**
- * Eventify - Admin Panel (Add/Manage Admins)
- */
+
 require_once 'includes/header.php';
 requireAdmin();
 
@@ -9,7 +7,6 @@ $db = getDB();
 $error = '';
 $success = '';
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
@@ -27,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (strlen($password) < 6) {
             $error = 'Password must be at least 6 characters long.';
         } else {
-            // Check if email exists
+          
             $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
             $stmt->execute([$email]);
             if ($stmt->fetch()) {

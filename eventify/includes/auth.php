@@ -3,18 +3,17 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include database functions from header.php without outputting HTML
 require_once __DIR__ . '/header.php';
 
 function loginUser($email, $password) {
     $db = getDB();
     if (!$db) {
-        // Demo fallback - ensure admin role is 'admin'
+       
         if ($email === 'admin@eventify.co.ke' && $password === 'admin123') {
             $_SESSION['user_id'] = 1;
             $_SESSION['user_name'] = 'Admin User';
             $_SESSION['user_email'] = $email;
-            $_SESSION['user_role'] = 'admin';  // FIXED: was 'organizer'
+            $_SESSION['user_role'] = 'admin';  
             return ['success' => true];
         } 
         return ['success' => false, 'message' => 'Database connection failed.'];
@@ -39,7 +38,7 @@ function loginUser($email, $password) {
 function registerUser($fullName, $email, $password, $phone = '', $role = 'user') {
     $db = getDB();
     if (!$db) {
-        // Demo fallback - just log them in
+        
         $_SESSION['user_id'] = rand(1000, 9999);
         $_SESSION['user_name'] = $fullName;
         $_SESSION['user_email'] = $email;
@@ -47,7 +46,7 @@ function registerUser($fullName, $email, $password, $phone = '', $role = 'user')
         return ['success' => true];
     }
     
-    // Check if email exists
+    
     $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {

@@ -1,8 +1,6 @@
 <?php
 require_once 'includes/header.php';
 
-// Safaricom will POST JSON to this endpoint.
-// This endpoint should be publicly accessible for sandbox/live callback delivery.
 
 $input = file_get_contents('php://input');
 if (!$input) {

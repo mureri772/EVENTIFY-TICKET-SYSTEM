@@ -1,7 +1,5 @@
 <?php
-/**
- * Eventify - Dashboard (User & Organizer)
- */
+
 require_once 'includes/header.php';
 requireAuth();
 
@@ -13,10 +11,9 @@ $stats = getStats();
 $pageTitle = 'Dashboard - Eventify';
 $activePage = 'dashboard';
 
-// Get upcoming events for users
+
 $upcomingEvents = getFeaturedEvents();
 
-// Get user likes
 $userLikes = getUserLikes($_SESSION['user_id']);
 ?>
 

@@ -1,19 +1,14 @@
 <?php
-/**
- * Eventify - Homepage
- */
 require_once 'includes/header.php';
 
-// Load data from database
 $categories = getCategories();
 $events = getAllEvents();
 $testimonials = getTestimonials();
 $stats = getStats();
 
-// Get user's likes if logged in
 $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 ?>
-<!-- HERO  -->
+
 <section class="hero">
   <div class="glow-blob-1"></div>
   <div class="glow-blob-2"></div>
@@ -48,7 +43,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
       <div class="scene-container">
         <div class="neon-backlight"></div>
 
-        <!-- Floating Card 1 -->
+      
         <div class="floating-card card-1 animate-float">
           <div class="card-img-container">
             <img src="images/hero/concert.jpg" alt="Live Concert" class="card-img">
@@ -66,7 +61,7 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
           </div>
         </div>
 
-        <!-- Floating Card 2 -->
+        
         <div class="floating-card card-2 animate-float-reverse">
           <div class="card-img-container">
             <img src="images/hero/gaming.jpg" alt="FIFA Tournament" class="card-img">
@@ -256,7 +251,6 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
   </div>
 </section>
 
-<!-- ==================== HOW IT WORKS ==================== -->
 <section class="section section-bg-dark" id="about">
   <div class="howitworks-glow"></div>
   <div class="container" style="position:relative;z-index:1">
@@ -305,7 +299,6 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
   </div>
 </section>
 
-<!-- ==================== ORGANIZER CTA ==================== -->
 <section class="section organizer-section" id="organizer-cta">
   <div class="organizer-glow"></div>
   <div class="container" style="position:relative;z-index:1">
@@ -369,7 +362,6 @@ $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
   </div>
 </section>
 
-<!-- ==================== TESTIMONIALS ==================== -->
 <section class="section section-bg-dark" id="testimonials">
   <div class="container">
     <div class="section-header">

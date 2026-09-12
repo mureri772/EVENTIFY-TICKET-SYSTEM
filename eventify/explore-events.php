@@ -1,18 +1,13 @@
 <?php
-/**
- * Eventify - Explore All Events Page
- * Displays all events organized by category in rows
- */
 require_once 'includes/header.php';
 
-// Load all categories and events
 $categories = getCategories();
 $allEvents = getAllEvents();
 
-// Get user's likes if logged in
+
 $userLikes = isLoggedIn() ? getUserLikes($_SESSION['user_id']) : [];
 
-// Group events by category
+
 $eventsByCategory = [];
 foreach ($categories as $cat) {
     $eventsByCategory[$cat['name']] = [];
@@ -53,7 +48,7 @@ $activePage = 'explore';
   color: var(--text-secondary);
 }
 
-/* Category Row Section */
+
 .category-row-section {
   margin-bottom: 64px;
   position: relative;
@@ -101,7 +96,7 @@ $activePage = 'explore';
   gap: 24px;
 }
 
-/* Horizontal scroll for mobile */
+
 @media (max-width: 1024px) {
   .category-row-events {
     grid-template-columns: repeat(3, 1fr);

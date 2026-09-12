@@ -5,7 +5,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'eventify_db');
 
-// Connect to database
+
 function getDB() {
     static $db = null;
     if ($db === null) {
@@ -14,14 +14,12 @@ function getDB() {
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // If database doesn't exist, return null (graceful fallback)
             return null;
         }
     }
     return $db;
 }
 
-// Auth functions
 function isLoggedIn() {
     return isset($_SESSION['user_id']);
 }
@@ -69,7 +67,6 @@ function getCurrentUser() {
     return $stmt->fetch() ?: ['id' => $_SESSION['user_id'], 'full_name' => $_SESSION['user_name'], 'email' => $_SESSION['user_email'], 'role' => $_SESSION['user_role']];
 }
 
-// Flash messages
 function setFlash($type, $message) {
     $_SESSION['flash'] = ['type' => $type, 'message' => $message];
 }
@@ -83,7 +80,6 @@ function getFlash() {
     return null;
 }
 
-// Data functions (fallback if no DB)
 function getCategories() {
     $db = getDB();
     if ($db) {
@@ -93,7 +89,7 @@ function getCategories() {
             if ($cats) return $cats;
         } catch (PDOException $e) {}
     }
-    // Fallback static data
+    
     return [
         ['id' => 1, 'name' => 'Sports & Gaming', 'icon' => 'gamepad', 'event_count' => 42, 'theme' => 'cat-sports', 'slug' => 'sports-gaming'],
         ['id' => 2, 'name' => 'Music & Live Concerts', 'icon' => 'music', 'event_count' => 120, 'theme' => 'cat-music', 'slug' => 'music'],

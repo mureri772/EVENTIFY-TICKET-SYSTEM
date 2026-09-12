@@ -1,6 +1,6 @@
 <?php
 ?>
-  <!-- Footer -->
+
   <footer class="footer">
     <div class="footer-top-accent"></div>
     <div class="container footer-container">

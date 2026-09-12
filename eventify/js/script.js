@@ -219,9 +219,6 @@ function handleCategoryClick(categoryName) {
 }
 
 
-// ═══════════════════════════════════════════════
-// RENDER EVENTS
-// ═══════════════════════════════════════════════
 
 function formatPrice(price) {
   return `KES ${price.toLocaleString()}`;
@@ -255,7 +252,7 @@ function filterAndRenderEvents() {
     return true;
   });
 
-  // Update header
+
   const isFiltered = !!(activeCategory || searchQuery || location);
   eventsTitle.textContent = isFiltered ? 'Filtered Results' : 'Hot in Nairobi 🔥';
   eventsSubtitle.textContent = isFiltered
@@ -263,13 +260,13 @@ function filterAndRenderEvents() {
     : 'Handpicked trending events this season. Book fast — spots fill up!';
   clearBtn.style.display = isFiltered ? 'inline-flex' : 'none';
 
-  // Render
+
   if (filtered.length > 0) {
     eventsGrid.style.display = 'grid';
     noResults.style.display = 'none';
     eventsGrid.innerHTML = filtered.map((event, index) => renderEventCard(event, index)).join('');
 
-    // Add like button handlers
+  
     eventsGrid.querySelectorAll('.like-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -277,7 +274,6 @@ function filterAndRenderEvents() {
       });
     });
 
-    // Add view details handlers
     eventsGrid.querySelectorAll('.details-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -339,10 +335,6 @@ function toggleLike(eventId) {
 }
 
 
-// ═══════════════════════════════════════════════
-// RENDER TESTIMONIALS
-// ═══════════════════════════════════════════════
-
 function renderTestimonials() {
   testimonialsGrid.innerHTML = testimonials.map(t => `
     <div class="testimonial-card">
@@ -366,9 +358,6 @@ function renderTestimonials() {
 }
 
 
-// ═══════════════════════════════════════════════
-// RENDER STATISTICS with Animated Counters
-// ═══════════════════════════════════════════════
 
 function renderStats() {
   statsGrid.innerHTML = stats.map(stat => {
@@ -417,9 +406,6 @@ function animateCounters() {
 }
 
 
-// ═══════════════════════════════════════════════
-// SEARCH
-// ═══════════════════════════════════════════════
 
 function handleSearch(e) {
   e.preventDefault();
@@ -441,10 +427,6 @@ function clearFilters() {
   filterAndRenderEvents();
 }
 
-
-// ═══════════════════════════════════════════════
-// NEWSLETTER
-// ═══════════════════════════════════════════════
 
 function handleNewsletterSubmit(e) {
   e.preventDefault();
@@ -478,10 +460,6 @@ newsletterEmail.addEventListener('input', () => {
 });
 
 
-// ═══════════════════════════════════════════════
-// EVENT LISTENERS
-// ═══════════════════════════════════════════════
-
 window.addEventListener('scroll', handleNavbarScroll);
 hamburger.addEventListener('click', toggleMobileMenu);
 searchForm.addEventListener('submit', handleSearch);
@@ -490,9 +468,6 @@ showAllBtn.addEventListener('click', clearFilters);
 newsletterForm.addEventListener('submit', handleNewsletterSubmit);
 
 
-// ═══════════════════════════════════════════════
-// INITIALIZATION
-// ═══════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCategories();

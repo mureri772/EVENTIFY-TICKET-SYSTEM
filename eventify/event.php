@@ -1,7 +1,5 @@
 <?php
-/**
- * Eventify - Event Detail Page
- */
+
 require_once 'includes/header.php';
 
 $eventId = intval($_GET['id'] ?? 0);
@@ -91,7 +89,7 @@ function ensureMpesaTicketColumns() {
             $db->exec("ALTER TABLE tickets ADD COLUMN mpesa_receipt_number VARCHAR(100) DEFAULT NULL");
         }
     } catch (PDOException $e) {
-        // Ignore schema update failures, continue gracefully.
+       
     }
 }
 
@@ -191,7 +189,7 @@ function getMpesaAccessToken($consumerKey, $consumerSecret) {
         'Accept: application/json'
     ]);
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Sandbox/dev only. Remove or set true in production.
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
 
     $response = curl_exec($ch);
     $curlError = curl_error($ch);
